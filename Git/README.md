@@ -3,19 +3,17 @@
 <br />
 
 <details>
-<summary>git bash 명령어</summary>
+<summary><u>git 명령어</u></summary>
 <br />
 
-1. 명령어
-    1. [**기본**](#1기본)
-    1. [**branch**](#2branch)
-    1. [**stash**](#3stash)
-    1. [**기타**](#4기타)
+ 1. [**기본**](#1기본)
+ 1. [**branch**](#2branch)
+ 1. [**stash**](#3stash)
+ 1. [**기타**](#4기타)
+
 <br />
 
-**1.기본**
-
--------------
+# **1.기본**
 
 ## git init 
 변경사항 추적, 버전관리 시작
@@ -56,9 +54,7 @@ hard,soft,mixed의 차이가 있다.
 -------------------
 <br />
 
-**2.branch**
-
---------------------
+# **2.branch**
 
 ## git branch 
 상태 확인
@@ -77,9 +73,7 @@ checkout을 master로 한다음 명령어 입력하면 name을 master로 불러�
 ------------------------
 <br />
 
-**3.stash**
-
------------
+# **3.stash**
 
 - 작업 했던 것을 어딘가에 숨겨놓음
 - 수정이 덜 끝났는데.. 저장하기에 모호할 때
@@ -100,9 +94,7 @@ apply + drop
 --------------------
 <br />
 
-**4.기타**
-
---------------
+# **4.기타**
 
 ```plaintext
 pwd 현재위치 확인 
@@ -115,45 +107,67 @@ cp f1.txt f2.txt (카피)
 용어- stage-> (커밋대기하는 애들이 가는곳)
 ```
 <br/>
-
+</details>
 
 <details>
-<summary>간단한 원리</summary>
+<summary><u>간단한 원리</u></summary>
 <br />
 
 ## 분석 도구 
+
 pip install gistory (분석 도구 설치)
-1) 파일의 내용: blob
-2) 디렉토리의 파일 명 & 내용명에 정보를 담는 곳 : tree
-3) commit : 각각의 id를 가지고 있다. - hash의 정보로 통하여 저장된다.
-<img src="./git/gitimage/gistory.png" />
+- 파일의 내용: blob
+- 디렉토리의 파일 명 & 내용명에 정보를 담는 곳 : tree
+- commit : 각각의 id를 가지고 있다. - hash의 정보로 통하여 저장된다.
+<br />
+<img src="../git/gitimage/gistory.png" />
+
+------------
 
 ## 브렌치 충돌 
+
 같은 파일에서 같은 곳을 수정하고 병합을 하면 발생
 git config --global merge.tool kdiff3 (병합전문적으로 하는 툴) 
 
+------------
+
 ## 2 way merge vs 3 way merge
-<img src="./git/gitimage/merge.jpg" />
+<br />
+<img src="../git/gitimage/merge.jpg" />
+
+----------
 
 ## pull vs fetch
+
 `**pull**은 다운받고 병합까지 다 해준다.`
 `**fetch**는 원격 저장소의 내용을 확인만 하고 로컬 저장소와 병합 하고 싶지 않을 때 사용한다.**`
 
+-------------
+
 ## revase vs merge 
+
 `**merge**는 병렬 구조이며, 쉽고 안전하다.`
 `**revase**는 일렬 구조이며, 파악이 잘된다. 하지만 어렵고 위험하다.`
-<img src="./git/gitimage/revase.jpg" />
+<br />
+<img src="../git/gitimage/revase.jpg" />
+
+--------------
 
 ## tag
+
 `Annotated tag는 만든 사람의 이름, 이메일 등과 같은 많은 정보를 주석으로 추가할 수 있다. ex)git tag -a v0.2 -m 'jintaek'`
 `Lightweight tag는 단순하게 특정 커밋에 대한 포인터이다.`
 `git tag -d 테그 버전 확인,  git push --tags 저장소에 업데이트`
 
-## git reset mode 차이
-<img src="./git/gitimage/str.jpg>
+-----------
 
+## git reset mode 차이
+<br />
+<img src="../git/gitimage/str.jpg" />
+
+</details>
 <br />
 
---------
+***
 [출처](https://www.youtube.com/watch?v=23V6_yZSmUY&t=80s)
 
