@@ -49,6 +49,8 @@
  ```
 
 ## origin이란 별칭의 원격 저장소로 버전 내역 전송
+- `$git push origin +master 강제 푸쉬` 
+
  ```bash
  $git push -u origin master   
  ```
