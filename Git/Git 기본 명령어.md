@@ -1,4 +1,4 @@
-# **git 기본 명령어**
+# **📚git 기본 명령어**
 
 ## 변경사항 추적, 버전관리 시작
 ```bash
@@ -41,11 +41,11 @@
  $git log 
  ```
 
-## origin 이란 별칭으로 원경 저장소를 연결
-- git remote remove origin 삭제 
+## origin이란 별칭으로 원격 저장소를 연결
+- `$git remote remove origin 삭제` 
 
  ```bash
- $git remote add origin eesskk9909@gmail.com   
+ $git remote add origin 저장소 주소 
  ```
 
 ## origin이란 별칭의 원격 저장소로 버전 내역 전송
