@@ -15,6 +15,7 @@
 ## Git
 
 - [**Git 기본 명령어**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20%EA%B8%B0%EB%B3%B8%20%EB%AA%85%EB%A0%B9%EC%96%B4.md)
-- [**branch 명령어**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20branch.md)
-- [**stash 명령어**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20stash.md)
+- [**branch 전략**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20branch.md)
+- [**stash 및 branch명령어**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20stash.md)
 - [**Git 원리**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20%EC%9B%90%EB%A6%AC.md)
+- [**Git Commit Convention**](https://github.com/LEEJINTAEK/StudyNote/blob/master/Git/Git%20commit%20convention.md)

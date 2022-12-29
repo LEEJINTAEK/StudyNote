@@ -115,7 +115,7 @@ Remove | 파일을 삭제하는 작업만 수행한 경우
 
 1. **기능**
 
-`Feat, Fix, Design, !BREAKING CHANGE 태그가 기능 태그의 종류`
+- Feat, Fix, Design, !BREAKING CHANGE 태그가 기능 태그의 종류
 
 ```plaintext
 Feat: 새로운 기능을 추가할 경우
@@ -124,7 +124,7 @@ Design: CSS 등 사용자 UI 디자인 변경
 !BREAKING CHANGE: 커다란 API 변경의 경우 (ex API의 arguments, return 값의 변경, DB 테이블 변경, 급하게 치명적인 버그를 고쳐야 하는 경우)
 ``` 
 
-`추가적인 문맥 정보를 제공하기 위한 목적으로 괄호 안에 적을 수도 있다`
+- 추가적인 문맥 정보를 제공하기 위한 목적으로 괄호 안에 적을 수도 있다
 
 ```plaintext
 ex)
