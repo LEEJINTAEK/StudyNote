@@ -9,6 +9,7 @@
 ## 목차
 
 1. [**Git**](#Git)
+2. [**JavaScript**](#javascript)
 
 <br/>
 
