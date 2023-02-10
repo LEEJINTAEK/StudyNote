@@ -35,3 +35,4 @@
 - [**CleanCode?**](./CleanCodeJs/CleanCode%EB%93%A4%EC%96%B4%EA%B0%80%EA%B8%B0.md)
 - [**변수 다루기**](./CleanCodeJs/%EB%B3%80%EC%88%98%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
 - [**타입 다루기**](./CleanCodeJs/%ED%83%80%EC%9E%85%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
+- [**경계 다루기**](./CleanCodeJs/%EA%B2%BD%EA%B3%84%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
