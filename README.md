@@ -39,3 +39,4 @@
 - [**타입 다루기**](./CleanCodeJs/%ED%83%80%EC%9E%85%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
 - [**경계 다루기**](./CleanCodeJs/%EA%B2%BD%EA%B3%84%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
 - [**분기 다루기**](./CleanCodeJs/%EB%B6%84%EA%B8%B0%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
+- [**배열 다루기**](./CleanCodeJs/%EB%B0%B0%EC%97%B4%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
