@@ -41,3 +41,4 @@
 - [**분기 다루기**](./CleanCodeJs/%EB%B6%84%EA%B8%B0%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
 - [**배열 다루기**](./CleanCodeJs/%EB%B0%B0%EC%97%B4%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
 - [**객체 다루기**](./CleanCodeJs/%EA%B0%9D%EC%B2%B4%20%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
+- [**함수 다루기**](./CleanCodeJs/%ED%95%A8%EC%88%98%EB%8B%A4%EB%A3%A8%EA%B8%B0.md)
