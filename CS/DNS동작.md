@@ -17,7 +17,7 @@
 
 <br />
 
-<img width="388" alt="DNS" src="https://user-images.githubusercontent.com/109197023/222902526-87c66732-d947-4443-9952-615203edc370.PNG">
+<img width="500" alt="DNS" src="https://user-images.githubusercontent.com/109197023/222902526-87c66732-d947-4443-9952-615203edc370.PNG">
 
 위를 참조하여 동작과정 예시를 보자
 
@@ -25,9 +25,11 @@
 
 ```plaintext
 
-1. DNS Query (from Web Browser to Local DNS) : "제가 원하는 웹 사이트의 IP 주소를 알고 계신가요?" Local DNS 서버에게 전달
+1. DNS Query (from Web Browser to Local DNS) : "제가 원하는 웹 사이트의 IP 주소를 알고 계신가요?"
+ Local DNS 서버에게 전달
 
-2. DNS Query (from Local DNS to Root DNS) : "제가 원하는 웹 사이트의 IP 주소를 알고 계신가요?" Root DNS서버에게 전달
+2. DNS Query (from Local DNS to Root DNS) : "제가 원하는 웹 사이트의 IP 주소를 알고 계신가요?"
+ Root DNS서버에게 전달
 
 3. DNS Response (from Root DNS to Local DNS) : "저는 모르지만 , Com 도메인을 관리하는 네임서버의 이름과 IP 주소를 알려드릴 테니 거기에 물어보세요"
 
@@ -37,13 +39,16 @@
 
 6. DNS Query (from Local DNS to naver. com NS) : “ 안녕하세요. www. Naver .com의 IP 주소를 알고 계신가요?"
 
-7. DNS Response (from naver .com NS to Local DNS) : "저는 모르지만 해당 웹은 www. g.naver. com이라는 이름으로 통해요. g.naver .com 도메인을 관리하는 네임서버의 이름과 IP 주소를 알려드릴테니 거기에 물어보세요"
+7. DNS Response (from naver .com NS to Local DNS) : "저는 모르지만 해당 웹은 www. g.naver. com이라는 이름으로
+통해요. g.naver .com 도메인을 관리하는 네임서버의 이름과 IP 주소를 알려드릴테니 거기에 물어보세요"
 
 8. DNS Query (from Local DNS to g.naver. com NS) : “ 안녕하세요. www. g.naver. com의 IP 주소를 알고 계신가요?"
 
-9. DNS Response (from g.naver .com NS to Local DNS) : " 네 www. g.naver .com의 IP 주소는 222.222.222.22와 333.333.333.33입니다"
+9. DNS Response (from g.naver .com NS to Local DNS) : " 네 www. g.naver .com의 IP 주소는
+222.222.222.22와 333.333.333.33입니다"
 
-10. DNS Response (from Local DNS to Web Browser) : "네 www. naver .com의 IP 주소는 222.222.222.22와 333.333.333.33입니다"
+10. DNS Response (from Local DNS to Web Browser) : "네 www. naver .com의 IP 주소는
+222.222.222.22와 333.333.333.33입니다"
 
 ```
 
