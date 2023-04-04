@@ -84,7 +84,8 @@
 
 ## pop
 
-- git stash pop 명령도 가장 최근에 저장한 stash를 현재 작업 트리에 적용합니다. 이때 stash는 apply와 달리 삭제됩니다. 따라서 pop 명령으로 stash를 적용한 경우 별도의 drop 명령이 필요하지 않습니다.
+- git stash pop 명령도 가장 최근에 저장한 stash를 현재 작업 트리에 적용한다.
+- 이때 stash는 apply와 달리 삭제된다. 따라서 pop 명령으로 stash를 적용한 경우 별도의 drop 명령이 필요하지 않는다.
 
 ```bash
  $git stash pop
