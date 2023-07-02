@@ -15,6 +15,7 @@
 - [상태](#상태)
 - [리스트](#리스트)
 - [폼](#폼)
+- [Class 이용한 옛날 react 문법 (참조)](#class-이용한-옛날-react-문법-참조)
 
 <br />
 <br />
@@ -170,3 +171,116 @@ function onValueChange(e) {
 - 간단한 데이터 저장이 필요할 때 localStorage 이용
 - `localStorage.setItem('이름','얍')` 저장
 - `localStorage.getItem('이름')` 불러오기
+
+<br />
+<br />
+
+## Class 이용한 옛날 react 문법 (참조)
+
+<br />
+
+### 컴포넌트 만들기
+
+```js
+class Compo extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return <div>안녕</div>;
+  }
+}
+```
+
+```plaintext
+1. class "~~~" 컴포넌트 이름 작명
+
+2. constructor, super, render 함수 3개 채움 (기본 템플릿같은 것)
+
+3. return 안에 축약할 html 적는다.
+```
+
+<br />
+<br />
+
+### State 다루기
+
+<br />
+
+만들기
+
+```js
+class Compo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "kim",
+      age: 20,
+    };
+  }
+
+  render() {
+    return <div>안녕 {this.state.name}</div>;
+  }
+}
+```
+
+- this.state 라는 변수만들고 거기 안에다가 object 형식으로 state 쭉 나열
+
+<br />
+
+변경
+
+```js
+class Compo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "kim",
+      age: 20,
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        안녕 {this.state.age}
+        <button
+          onClick={() => {
+            this.setState({ age: 21 });
+          }}
+        >
+          버튼
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+- this.setState라는 기본함수를 가져다가 쓴다.
+- 소괄호안에 새로운 state 넣으면 그걸로 기존 state를 업데이트해준다.
+
+<br />
+<br />
+
+### props
+
+```js
+class Compo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "kim",
+      age: 20,
+    };
+  }
+
+  render() {
+    return <div>안녕 {this.props.프롭스이름}</div>;
+  }
+}
+```
+
+- constructor, super에 props 파라미터 등록하고 this.props 쓰면 props 나온다.
