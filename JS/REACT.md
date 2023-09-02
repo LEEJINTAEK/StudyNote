@@ -82,6 +82,37 @@ function Card(props){
 3. > https://emotion.sh/docs/introduction
 4. > https://tailwindcss.com/
 
+5. **스타일 컴포넌트**
+
+```js
+import styled from "styled-components";
+
+const Btn = styled.button`
+  background: ${(props) => props.bg};
+  color: ${(props) => (props.bg == "blue" ? "white" : "black")};
+  padding: 10px;
+`;
+
+<Btn bg="blue">클릭해~</Btn>;
+```
+
+방식은 위와 같다.
+
+<br />
+
+```plaintext
+장점
+1. css 파일 오픈할 필요 없이 js에서 바로 스타일 가능
+2. 다른 js파일로 스타일 오염이 없음
+3. 페이지 로딩시간 단축 <- html페이지의 <style>태그에 넣어줘서..
+4. props 재활용 가능
+
+단점
+1. js 파일이 복잡해지고 컴포넌트가 styled인지 일반 컴포넌트인지 구별이 어려움
+2. js파일간 중복 디자인이 많아지면 import 기능 사용하면 되지만, 일반 css 사용과 차이 없어짐
+3. css 담당 디자이너가 있다면 협업시 불편할 수 있음 -> css를 다시 styled-component로 바꿔야 할...
+```
+
 <br />
 <br />
 
