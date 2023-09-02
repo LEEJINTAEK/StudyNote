@@ -315,3 +315,106 @@ class Compo extends React.Component {
 ```
 
 - constructor, super에 props 파라미터 등록하고 this.props 쓰면 props 나온다.
+
+<br />
+<br />
+
+## 리액트 라우터
+
+<br />
+
+기본 라우터 설치
+
+```shell
+npm install react-router-dom@6
+```
+
+<br />
+
+세팅(index.js)
+
+```js
+import { BrowserRouter } from "react-router-dom";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+```
+
+<br />
+<br />
+
+사용하기 (참조)
+
+```js
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  Outlet,
+  Navigate,
+  useParams,
+} from "react-router-dom";
+
+//url 경로마다 다른 페이지를 보여주고 싶으면
+<Route path="/detail" element={ <div>상세페이지</div> } />
+<Route path="/about" element={ <div>어바웃페이지</div> } />
+
+//페이지 링크 (Link, navigate)
+<Link className="link" to="/">
+   Home
+</Link>
+
+let navigate = useNavigate();
+<Nav.Link
+  onClick={() => {
+    navigate("/");
+  }}
+  >
+  Home
+</Nav.Link>
+
+//서브 경로( Nested routes )
+<Route path="/about" element={ <About/> } >
+  <Route path="member" element={ <div>멤버들</div> } />
+  <Route path="location" element={ <div>회사위치</div> } />
+</Route>
+
+//<Outlet>은 nested routes안의 element들을 어디에 보여줄지 표기하는 곳
+function About(){
+  return (
+    <div>
+      <h4>about페이지</h4>
+      <Outlet></Outlet>   </div>
+  )
+}
+
+
+//응용
+
+//경로에는 /~~~/~~ 아무렇게 붙여도 상관없다.
+// "*" 작성한 경로 외의 것들 -> 404 페이지 응용
+//페이지 여러개 만들려면 -> path 작명할 때 /:어쩌구 이렇게 사용하면 "아무 문자"를 뜻 -> "/detail/:id"
+
+<Routes>
+        <Route path="/" element={<ShoesPage shoes={shoes} />}></Route>
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />}></Route>
+        <Route path="*" element={<>404~~</>}></Route>
+
+        <Route path="/event" element={<Event />}>
+          <Route path="one" element={<p>첫 주문시 신발 하나</p>}></Route>
+          <Route path="two" element={<p>생일 쿠폰 받기</p>}></Route>
+        </Route>
+</Routes>
+
+// /:url파라미터 자리에 유저가 입력한 값을 가져옴
+//누가 /detail/1로 접속하면 id라는 변수에 1이 들어옴
+ let { id } = useParams();
+ console.log(id) // 1
+```
