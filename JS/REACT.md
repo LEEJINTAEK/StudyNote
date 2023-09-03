@@ -17,6 +17,7 @@
 - [폼](#폼)
 - [Class 이용한 옛날 react 문법 (참조)](#class-이용한-옛날-react-문법-참조)
 - [라우터](#리액트-라우터)
+- [useEffect](#useeffect)
 
 <br />
 <br />
@@ -432,4 +433,104 @@ function About() {
 //누가 /detail/1로 접속하면 id라는 변수에 1이 들어옴
 let { id } = useParams();
 console.log(id); // 1
+```
+
+<br />
+<br />
+<br />
+
+## useEffect
+
+<br />
+
+컴포넌트는
+
+1. 생성이 될 수도 있음 (전문용어로 mount)
+
+2. 재렌더링이 될 수도 있음 (전문용어로 update)
+
+3. 삭제가 될 수도 있음 (전문용어로 unmount)
+
+4. 코드 실행해달라고 간섭할 수 있는데, 갈고리를 달아서 코드를 넣어주면 됨
+
+5. 그럼 진짜 페이지 장착시, 업데이트시, 제거시 코드실행가능 -> Lifecycle hook
+
+<br />
+
+옛날 React에서 Lifecycle hook 쓰는 법
+
+```js
+class Detail2 extends React.Component {
+  componentDidMount() {
+    //Detail2 컴포넌트가 로드되고나서 실행할 코드
+  }
+  componentDidUpdate() {
+    //Detail2 컴포넌트가 업데이트 되고나서 실행할 코드
+  }
+  componentWillUnmount() {
+    //Detail2 컴포넌트가 삭제되기전에 실행할 코드
+  }
+}
+```
+
+<br />
+
+요즘 React에서 Lifecycle hook 쓰는 법
+
+```js
+import { useState, useEffect } from "react";
+
+function Detail() {
+  useEffect(() => {
+    //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
+    console.log("안녕");
+  });
+
+  return 생략;
+}
+```
+
+<br />
+<br />
+
+**정리**
+
+1. 재랜더링마다 코드를 실행가능
+
+```js
+useEffect(() => {
+  실행할코드;
+});
+
+// 컴포넌트 mount시 1회만 실행가능
+useEffect(() => {
+  실행할코드;
+}, []);
+```
+
+<br />
+
+2. useEffect 안의 코드 실행 전에 항상 실행 -> 타이머나 서버 코드 실행할 때 정리(?) 로 많이 사용
+
+```js
+useEffect(() => {
+  return () => {
+    실행할코드;
+  };
+});
+
+// unmount시 1회 실행
+useEffect(() => {
+  return () => {
+    실행할코드;
+  };
+}, []);
+```
+
+3. 응용(state1이 변경될 때만 실행)
+
+```js
+useEffect(() => {
+  실행할코드;
+}, [state1]);
 ```
