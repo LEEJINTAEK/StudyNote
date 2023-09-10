@@ -18,6 +18,7 @@
 - [Class 이용한 옛날 react 문법 (참조)](#class-이용한-옛날-react-문법-참조)
 - [라우터](#리액트-라우터)
 - [useEffect](#useeffect)
+- [ajax](#ajax-서버)
 
 <br />
 <br />
@@ -534,3 +535,137 @@ useEffect(() => {
   실행할코드;
 }, [state1]);
 ```
+
+<br />
+<br />
+<br />
+
+## ajax (서버)
+
+<br />
+
+**서버란?**
+
+- 유저가 데이터달라고 요청을 하면 데이터를 보내주는 간단한 프로그램
+
+- 정확한 규격에 맞추어 서버에 데이터 요청
+
+1. 어떤 데이터인지 (URL 형식으로)
+
+2. 어떤 방법으로 요청할지 (GET or POST)
+
+<br />
+<br />
+
+**ajax란?**
+
+- 서버에 GET, POST 요청을 할 때 새로고침 없이 데이터를 주고받을 수 있게 도와주는 간단한 브라우저 기능을
+
+- 예를 들어, 새로고침 없이도 쇼핑몰 상품을 더 가져올 수도 있고, 새로고침 없이도 댓글을 서버로 전송할 수도 있고 ...
+
+<br />
+
+**사용하려면??**
+
+1. XMLHttpRequest라는 옛날 문법 쓰기
+
+2. fetch() 라는 최신 문법 쓰기 (js)
+
+3. axios 같은 외부 라이브러리 쓰기
+
+   ```shell
+   npm install axios
+   ```
+
+<br />
+
+**axios 응용**
+
+```js
+import axios from "axios";
+
+function App() {
+  let [shoes, setShoes] = useState(data);
+  return (
+    <button
+      onClick={() => {
+        axios
+          .get("https://codingapple1.github.io/shop/data2.json")
+          .then((datas) => {
+            let copy = [...shoes, ...datas.data];
+            setShoes(copy);
+          })
+          .catch(() => {
+            console.log("실패함");
+          });
+      }}
+    >
+      버튼
+    </button>
+  );
+}
+```
+
+1. axios를 쓰려면 상단에서 import
+
+2. axios.get(URL) 이러면 그 URL로 GET요청
+
+3. 데이터 가져온 결과는 결과.data 안에 !!
+
+4. 인터넷이 안되거나 URL이 이상하면 실패하는데, 실패했을 때 실행할 코드는 .catch() 안에 적으면 끝.
+
+<br />
+<br />
+
+**post 요청 방법**
+
+```js
+axios.post("URL", { name: "kim" });
+
+// 실행하면 서버로 { name : 'kim' } 자료가 전송
+//완료시 특정 코드를 실행하고 싶으면 이것도 역시 .then() 뒤에 붙이면 됨
+```
+
+<br />
+
+**동시에 AJAX 요청 여러개 날리려면**
+
+```js
+Promise.all([axios.get("URL1"), axios.get("URL2")]);
+//둘 다 완료시 특정 코드를 실행하고 싶으면 .then() 뒤에 붙이면 됨
+```
+
+<br />
+<br />
+
+**axios vs fetch**
+
+<br />
+
+원래 서버와 문자자료만 주고받을 수 있음 <br />
+object/array 이런거 다루려면, object/array 자료에 따옴표를 쳐놓으면 됨 <br />
+**"{"name" : "kim"}"** 이걸 **JSON** 이라고 함 <br />
+
+JSON은 문자 취급을 받기 때문에 서버와 자유롭게 주고받을 수 있음 <br />
+그래서 실제로 결과.data 출력해보면 따옴표쳐진 JSON이 나와야하는데, <br />
+axios 라이브러리는 JSON -> object/array 변환작업을 자동으로 해줘서 <br />
+출력해보면 object/array가 나옴
+
+<br />
+
+fetch('URL').then(결과 => 결과.json()).then((결과) => { console.log(결과) } )
+쌩자바스크립트 문법인 **fetch()** 를 이용해도 **GET/POST 요청이 가능**한데
+
+그건 JSON -> object/array 이렇게 자동으로 안바꿔줘서 직접 바꾸는 작업이 필요!!
+
+<br />
+<br />
+ 
+ajax로 가져온 데이터를 html에 넣을 때 에러 발생 이유는??
+
+- ajax요청으로 데이터를 가져와서, state에 저장하라고 코드를 짜놨고 <br />
+  state를 html에 넣어서 보여달라고 `<div> {state.어쩌구} </div>` 이렇게 코드 짰는데, <br />
+  state가 비어있다고 에러가 나는 경우가 많다.
+
+- 이유는 ajax 요청보다 html 렌더링이 더 빨라서 그럴 수 있다.
+- 따라서, state안에 뭐가 들어있으면 보여달라고 if문 같은걸 추가하거나 그러면 된다.
