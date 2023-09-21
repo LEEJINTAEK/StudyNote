@@ -70,7 +70,7 @@ Context에 있던 state를 꺼내 쓰려면
 <br />
 <br />
 
-## Redux 세팅하기
+## Redux Toolkit 세팅하기
 
 <br />
 

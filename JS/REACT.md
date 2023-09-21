@@ -19,6 +19,7 @@
 - [라우터](#리액트-라우터)
 - [useEffect](#useeffect)
 - [ajax](#ajax-서버)
+- [if문]
 
 <br />
 <br />
@@ -669,3 +670,91 @@ ajax로 가져온 데이터를 html에 넣을 때 에러 발생 이유는??
 
 - 이유는 ajax 요청보다 html 렌더링이 더 빨라서 그럴 수 있다.
 - 따라서, state안에 뭐가 들어있으면 보여달라고 if문 같은걸 추가하거나 그러면 된다.
+
+<br />
+<br />
+<br />
+
+## if문 작성법
+
+<br />
+
+1. 컴포넌트 안에서 쓰는 if/else
+
+```js
+function Component() {
+  if (true) {
+    return <p>참이면 보여줄 HTML</p>;
+  }
+  return null;
+}
+```
+
+<br />
+
+2. JSX안에서 쓰는 삼항연산자
+
+```js
+function Component() {
+  return (
+    <div>
+      {1 === 1 ? (
+        <p>참이면 보여줄 HTML</p>
+      ) : 2 === 2 ? (
+        <p>안녕</p>
+      ) : (
+        <p>반갑</p>
+      )}
+    </div>
+  );
+}
+```
+
+<br />
+
+3. && 연산자로 if 역할 대신하기
+
+```js
+function Component() {
+  return <div>{1 === 1 && <p>참이면 보여줄 HTML</p>}</div>;
+}
+```
+
+<br />
+
+4. switch / case 조건문
+
+```js
+function Component2() {
+  let user = "seller";
+  switch (user) {
+    case "seller":
+      return <h4>판매자 로그인</h4>;
+    case "customer":
+      return <h4>구매자 로그인</h4>;
+    default:
+      return <h4>그냥 로그인</h4>;
+  }
+}
+```
+
+<br />
+
+5. object/array 자료형 응용
+
+```js
+function Component() {
+  let state = "info";
+  return (
+    <div>
+      {
+        {
+          info: <p>상품정보</p>,
+          shipping: <p>배송관련</p>,
+          refund: <p>환불약관</p>,
+        }[state]
+      }
+    </div>
+  );
+}
+```
