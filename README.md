@@ -29,6 +29,8 @@
 - [**자바스크립트 동작원리**](./JS/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EB%8F%99%EC%9E%91%EC%9B%90%EB%A6%AC.md)
 - [**closure**](./JS/%ED%81%B4%EB%A1%9C%EC%A0%80.md)
 - [**React 기본 간단 정리**](./JS/REACT.md)
+- [**Redux 세팅**](./JS/Redux.md)
+- [**React-query**](./JS/REACT_query.md)
 - [**Callback 함수**](./JS/Callback.md)
 - [**Event Bubbling & Capture**](./JS/%EB%B2%84%EB%B8%94%EB%A7%81%EC%BA%A1%EC%B2%98.md)
 - [**DOM & BOM**](./JS/Dom%26Bom.md)
