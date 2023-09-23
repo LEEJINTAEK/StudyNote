@@ -19,7 +19,8 @@
 - [라우터](#리액트-라우터)
 - [useEffect](#useeffect)
 - [ajax](#ajax-서버)
-- [if문]
+- [if문](#if문-작성법)
+- [성능개선](#성능개선)
 
 <br />
 <br />
@@ -758,3 +759,250 @@ function Component() {
   );
 }
 ```
+
+<br />
+<br />
+<br />
+
+## 성능개선
+
+<br />
+<br />
+
+### **lazy & Suspense**
+
+```js
+import Detail from "./routes/Detail.js";
+import Cart from "./routes/Cart.js";
+```
+
+<br />
+
+```js
+import { lazy } from "react";
+
+const Detail = lazy(() => import("./routes/Detail.js"));
+const Cart = lazy(() => import("./routes/Cart.js"));
+```
+
+- "Detail 컴포넌트가 필요해지면 import 해주세요" 라는 뜻
+
+- 이렇게 해놓으면 Detail 컴포넌트 내용을 다른 js 파일로 쪼갬
+
+- 그래서 첫 페이지 로딩속도를 향상!!
+
+<br />
+
+```js
+import { Suspense } from "react";
+
+<Suspense fallback={<div>로딩중임</div>}>
+  <Detail shoes={shoes} />
+</Suspense>;
+```
+
+lazy 사용하면 당연히 Detail 컴포넌트 로드까지 지연시간이 발생할 수 있음. 따라서,
+
+1. Suspense 라는거 import 해오고
+
+2. Detail 컴포넌트를 감싸면 Detail 컴포넌트가 로딩중일 때 대신 보여줄 html 작성도 가능
+
+<br />
+<br />
+
+### **memo & useMemo**
+
+```js
+import {memo, useState} from 'react'
+
+let Child = memo( function(){
+  console.log('재렌더링됨')
+  return <div>자식임</div>
+})
+
+function Cart(){
+
+  let [count, setCount] = useState(0)
+
+  return (
+    <Child />
+    <button onClick={()=>{ setCount(count+1) }}> + </button>
+  )
+}
+```
+
+- memo를 import 해와서 원하는 컴포넌트 정의부분을 감싸면 됨
+
+- 그럼 이제 Child로 전송되는 props가 변하거나 그런 경우에만 재렌더링!
+  <br />
+
+memo로 감싼 컴포넌트는 헛된 재렌더링을 안시키려고 기존 props와 바뀐 props를 비교하는 연산이 추가로 진행된다.. <br />
+props가 크고 복잡하면 이거 자체로도 부담이 될 수도 있음! <br />
+그래서 꼭 필요한 곳에만 사용하자
+
+<br /> 
+<br />
+
+useMemo라는 문법도 있는데 useEffect와 비슷한 용도 <br />
+컴포넌트 로드시 1회만 실행하고 싶은 코드가 있으면 거기 담으면 됨.
+
+```js
+import {useMemo, useState} from 'react'
+
+function 함수(){
+  return 반복문10억번돌린결과
+}
+
+function Cart(){
+
+  let result = useMemo(()=>{ return 함수() }, [])
+
+  return (
+    <Child />
+    <button onClick={()=>{ setCount(count+1) }}> + </button>
+  )
+}
+```
+
+<br />
+
+1. 예를 들어서 반복문을 10억번 돌려야하는 경우
+
+2. 그 함수를 useMemo 안에 넣어두면 컴포넌트 로드시 1회만 실행
+
+- 그럼 재렌더링마다 동작안하니까 좀 효율적으로 동작
+- useEffect 처럼 dependency도 넣을 수 있어서
+- 특정 state, props가 변할 때만 실행할 수도 있음
+
+<br />
+<br />
+
+### batching & useTransition & useDeferredValue
+
+<br />
+
+[1] batching
+
+```js
+setCount(1);
+setName(2);
+setValue(3); //여기서 1번만 재렌더링됨
+```
+
+state변경함수를 연달아서 3개 사용하면 재렌더링도 원래 3번 되어야하지만
+
+리액트는 재렌더링을 마지막에 1회만 처리해줌 -> 일종의 쓸데없는 재렌더링 방지기능인 **batching**
+
+```js
+fetch().then(() => {
+  setCount(1); //재렌더링됨
+  setName(2); //재렌더링됨
+});
+```
+
+ajax요청, setTimeout안에 state변경함수가 있는 경우 batching이 일어나지 않았는데... <br />
+18버전 이후 부터는 어디 있든 간에 재렌더링은 마지막에 1번만 됨 <br /> <br />
+batching 되는게 싫고 state변경함수 실행마다 재렌더링시키고 싶으면 **flushSync**라는 함수를 쓰자
+
+<br />
+<br />
+
+[2] useTransition
+
+<br />
+
+```js
+import { useState, useTransition } from "react";
+
+let a = new Array(10000).fill(0); // 성능저하 만들기
+
+function App() {
+  let [name, setName] = useState("");
+  let [isPending, startTransition] = useTransition(); //보통 변수 작명은 이렇게..
+
+  return (
+    <div>
+      <input
+        onChange={(e) => {
+          startTransition(() => {
+            setName(e.target.value);
+          });
+        }}
+      />
+
+      {a.map(() => {
+        return <div>{name}</div>;
+      })}
+    </div>
+  );
+}
+```
+
+- useTransition() 쓰면 그 자리에 [변수, 함수]가 남는다.
+
+- 그 중 우측에 있는 startTransition() 함수로 state변경함수 같은걸 묶으면 그걸 다른 코드들보다 나중에 처리해 줌
+
+- 그래서 <input> 타이핑같이 즉각 반응해야하는걸 우선적으로 처리해줄 수 있음
+
+- 타이핑해보면 아까보다 반응속도가 훨씬 낫다.
+
+<br />
+
+물론 근본적인 성능개선이라기보단 특정코드의 실행시점을 뒤로 옮겨주는 것일 뿐....
+html이 많으면 여러페이지로 쪼개쓰자.
+
+<br />
+
+```js
+{
+  isPending
+    ? "로딩중기다리셈"
+    : a.map(() => {
+        return <div>{name}</div>;
+      });
+}
+```
+
+위의 isPending은 startTransition 으로 감싼 코드가 처리중일 때 true로 변하는 변수 <br />
+따라서 위와 같이 사용할 수 있음
+
+<br />
+<br />
+
+[3] useDeferredValue
+
+startTransition() 이거랑 용도가 똑같다. <br />
+근데 얘는 state 아니면 변수하나를 집어넣을 수 있게 되어있다...<br />
+그래서 그 변수에 변동사항이 생기면 그걸 늦게 처리해줌
+
+<br />
+
+```js
+import { useState, useDeferredValue } from "react";
+
+let a = new Array(10000).fill(0);
+
+function App() {
+  let [name, setName] = useState("");
+  let state1 = useDeferredValue(name);
+
+  return (
+    <div>
+      <input
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+      />
+
+      {a.map(() => {
+        return <div>{state1}</div>;
+      })}
+    </div>
+  );
+}
+```
+
+<br />
+
+- useDeferredValue 안에 state를 집어넣으면 그 state가 변동사항이 생겼을 때 나중에 처리함
+- 그리고 처리결과는 let state에 저장해줌
