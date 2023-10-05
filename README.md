@@ -60,3 +60,4 @@
 - [**브라우저 렌더링**](./CS/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EB%9E%9C%EB%8D%94%EB%A7%81.md)
 - [**HTTP? HTTPS?**](./CS/HTTPS.md)
 - [**TCP/IP**](./CS/TCPIP.md)
+- [**스토리지**](./CS/스토리지.md)
