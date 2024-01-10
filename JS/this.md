@@ -2,6 +2,10 @@
 
 <br />
 
+👉 [**요약 정리**](#결론요약-정리)
+
+<br />
+
 **자바스크립트 내에서 this는 '어디서 불렀느냐' 즉, 선언이 아닌 호출에 따라 달라진다!!**
 
 <br />
@@ -350,6 +354,273 @@ const instance = new Foo(); // 에러 발생
 
 생성자 함수는 prototype 프로퍼티를 가지며 prototype 프로퍼티가 가르키는 프로토타입 객체의 constructor을 사용한다. <br />
 하지만 화살표 함수는 prototype 프로퍼티를 가지고 있지 않음
+
+<br />
+<br />
+
+## 결론(요약 정리)
+
+<br />
+<br />
+
+**This는 호출되는 방식에 따라서 바인딩(가리키는 객체) 대상이 달라진다.** <br />
+
+1. 함수에서 사용되는 This
+
+- 기본적으로 전역 컨텍스트에서 this는 window를 가리킴
+- 따라서 전역 렉시컬 환경에 있는 name도 접근할 수 있음
+
+```js
+const name = "elice";
+console.log(this); // window {...}
+```
+
+일반 함수 호출에서도 this는 window를 가리킴 <br />
+따라서 myFunc 함수 내부에 있는 name에 접근 할 수 없음
+
+```js
+function myFunc() {
+  const name = "elice";
+  console.log(this);
+}
+myFunc(); // 일반 함수 호출시 window {...}
+```
+
+<br />
+<br />
+
+2. 생성자 함수 호출
+
+- 생성자 함수 내부의 this는 new 키워드를 통해 앞으로 만들어질 인스턴스 객체를 가리킴
+- 생성자 함수는 함수 이름으로 된 객체를 만들어줌
+- 반환해야할 것들은 this 즉, 생성될 시점의 컨텍스트에 저장되고 자동으로 return 되기 때문에
+  명시적으로 써줄 필요가 없음
+- 따라서 다른 값을 return 하면 객체가 만들어지지 않음.
+
+```js
+function myFunc(name) {
+  this.name = name;
+  this.getName = function () {
+    console.log("getName this:", this);
+    return this.name;
+  };
+
+  console.log("myFunc this:", this);
+  // return this; 생략 가능합니다.
+}
+
+const o = new myFunc("elice"); // myFunc this: myFunc {...}
+o.getName(); // myFunc this: myFunc {...}
+```
+
+결과적으로 일반적으로 함수를 호출할 때는 this가 모두 window를 가리킴 <br />
+함수를 객체로 생성하는 방법에만 this가 생성하는 함수 내부를 가리킵니다.
+
+<br />
+<br />
+
+3. 객체에서 사용되는 this
+
+- 객체에서의 this는 메소드를 호출한 객체를 가리킴
+
+```js
+const o = {
+  name: "elice",
+  myFunc: function () {
+    console.log(this);
+  },
+};
+
+o.myFunc(); // {name: 'elice', myFunc: ƒ}
+```
+
+- 하지만 객체 안 함수의 내부 함수에 This는 동적바인딩으로 인해 전역 객체를 가리킴
+
+```js
+const o = {
+  name: "elice",
+  myFunc: function () {
+    return function () {
+      console.log(this);
+    };
+  },
+};
+
+o.myFunc()(); // window {...}
+```
+
+<br />
+<br />
+
+4. This 고정하기
+
+<br />
+
+- **화살표 함수로 고정하기**
+
+```js
+/_ 생성자 함수 방식 _/;
+function createObject() {
+  this.myFunc = function () {
+    console.log("myFunc this:", this);
+    return function () {
+      console.log("myFunc return this:", this);
+    };
+  };
+}
+
+const o = new createObject();
+o.myFunc()();
+// myFunc this: createObject {...}
+// myFunc return this: window {...}
+
+/_ 객체 리터럴 방식 _/;
+const o = {
+  myFunc: function () {
+    console.log("myFunc this:", this);
+    return function () {
+      console.log("myFunc return this:", this);
+    };
+  },
+};
+
+o.myFunc()();
+// myFunc this: myFunc {...}
+// myFunc return this: window {...}
+```
+
+객체의 최상위 스코프에서의 함수 본문 this는 객체 최상위 스코프를 정상적으로 가리킨다. <br />
+하지만 함수 안에 또다시 함수가 리턴되는 경우에는 window 객체를 가리킨다. <br />
+다음과 같이 화살표 함수를 사용하면 객체 최상위 스코프를 가리키도록 유지한다. <br />
+
+```js
+/_ 생성자 함수 방식 _/;
+function createObject() {
+  this.myFunc = function () {
+    console.log("myFunc this:", this);
+    // 다음 부분을 화살표 함수로 변경
+    return () => {
+      console.log("myFunc return this:", this);
+    };
+  };
+}
+
+const o = new createObject();
+o.myFunc()();
+// myFunc this: createObject {...}
+// myFunc return this: createObject {...}
+
+/_ 객체 리터럴 방식 _/;
+const o = {
+  myFunc: function () {
+    console.log("myFunc this:", this);
+    // 다음 부분을 화살표 함수로 변경
+    return () => {
+      console.log("myFunc return this:", this);
+    };
+  },
+};
+
+o.myFunc()();
+// myFunc this: myFunc {...}
+// myFunc return this: myFunc {...}
+```
+
+- **call, apply, bind 메서드로 고정하기**
+
+<br />
+
+**bind 메서드**
+
+```js
+/_ 생성자 함수 방식 _/;
+function createObject() {
+  this.myFunc = function () {
+    console.log("myFunc this:", this);
+    return function () {
+      console.log("myFunc return this:", this);
+    };
+  };
+}
+
+const o = new createObject();
+o.myFunc().bind(o)(); // bind 메서드를 사용해 o객체로 고정시킵니다.
+// myFunc this: createObject {...}
+// myFunc return this: createObject {...}
+
+/_ 객체 리터럴 방식 _/;
+const o = {
+  myFunc: function () {
+    console.log("myFunc this:", this);
+    return function () {
+      console.log("myFunc return this:", this);
+    };
+  },
+};
+
+o.myFunc().bind(o)(); // bind 메서드를 사용해 o객체로 고정 그리고 함수를 실행
+// myFunc this: myFunc {...}
+// myFunc return this: myFunc {...}
+```
+
+**apply, call 메서드**
+
+- 두 메서드에 차이는 call 메서드는 인수 목록을 받고, apply 메서드는 인수 배열을 하나 받는다.
+  `ex) call(this, var1, var2, var3, …) / apply(this, [ el, el2, el3, … ])`
+
+```js
+/_ 생성자 함수 방식 _/;
+function createObject() {
+  this.myFunc = function () {
+    console.log("myFunc this:", this);
+    return function () {
+      console.log("myFunc return this:", this);
+    };
+  };
+}
+
+const o = new createObject();
+o.myFunc().call(o, null); // call 메서드를 사용해 o객체로 고정시킨 후 함수 실행
+// myFunc this: createObject {...}
+// myFunc return this: createObject {...}
+o.myFunc().apply(o, null); // apply 메서드를 사용해 o객체로 고정시킨 후 함수 실행
+// myFunc this: createObject {...}
+// myFunc return this: createObject {...}
+
+/_ 객체 리터럴 방식 _/;
+const o = {
+  myFunc: function () {
+    console.log("myFunc this:", this);
+    return function () {
+      console.log("myFunc return this:", this);
+    };
+  },
+};
+
+o.myFunc().call(o, null); // call 메서드를 사용해 o객체로 고정시킨 후 함수 실행
+// myFunc this: myFunc {...}
+// myFunc return this: myFunc {...}
+o.myFunc().apply(o, null); // apply 메서드를 사용해 o객체로 고정시킨 후 함수 실행
+// myFunc this: myFunc {...}
+// myFunc return this: myFunc {...}
+```
+
+**call, apply, bind는 일반 함수 호출에도 원하는 객체를 가리킬 수 있다**
+
+```js
+const o = {
+  name: "Elice",
+};
+
+function myFunc() {
+  console.log(this);
+}
+
+myFunc(); // window {...}
+myFunc.bind(o)(); // {name: 'Elice'}
+myFunc.call(o, null); // {name: 'Elice'}
+myFunc.apply(o, null); // {name: 'Elice'}
+```
 
 <br />
 <br />
