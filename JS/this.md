@@ -458,6 +458,8 @@ o.myFunc()(); // window {...}
 
 - **화살표 함수로 고정하기**
 
+setTimeout등 this가 바뀌는 상황에서 유용! <br />
+
 ```js
 /_ 생성자 함수 방식 _/;
 function createObject() {
@@ -529,6 +531,9 @@ o.myFunc()();
 - **call, apply, bind 메서드로 고정하기**
 
 <br />
+
+화살표 함수의 this는 정해지면 바꿀 수 없는데 <br />
+call, aplly, bind 사용해도 바뀌지 않음 <br />
 
 **bind 메서드**
 
