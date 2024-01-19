@@ -641,13 +641,63 @@ function App() {
 <br />
 <br />
 
-**post 요청 방법**
+**js에서 요청 방법**
 
 ```js
-axios.post("URL", { name: "kim" });
+//post
+function axiosPost() {
+  const token = document.getElementById("token");
 
-// 실행하면 서버로 { name : 'kim' } 자료가 전송
-//완료시 특정 코드를 실행하고 싶으면 이것도 역시 .then() 뒤에 붙이면 됨
+  const login = { email: "eve.holt@reqres.in", password: "cityslicka" };
+
+  axios.post("https://reqres.in/api/login", login).then((response) => {
+    let res = response.data.token;
+    token.innerHTML = res;
+  });
+}
+
+//get
+function axiosGet() {
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+
+  axios.get("https://reqres.in/api/users/2").then((response) => {
+    let res = response.data.data;
+    name.innerHTML = res.first_name + " " + res.last_name;
+    email.innerHTML = res.email;
+  });
+}
+
+//put
+function axiosPut() {
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const updateDate = document.getElementById("update_date");
+
+  const updateData = {
+    first_name: "White",
+    last_name: "Rabbit",
+    email: "alice@elice.io",
+  };
+
+  axios.put("https://reqres.in/api/users/2", updateData).then((response) => {
+    let res = response.data;
+    name.innerHTML = res.first_name + " " + res.last_name;
+    email.innerHTML = res.email;
+    updateDate.innerHTML = res.updatedAt;
+  });
+}
+
+//delete
+
+function axiosDelete() {
+  const status = document.getElementById("status");
+
+  axios.delete("https://reqres.in/api/users/2").then((response) => {
+    console.log(response);
+    status.innerHTML = response.status;
+  });
+}
 ```
 
 <br />
