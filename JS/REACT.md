@@ -376,6 +376,20 @@ import {
 <br />
 
 ```js
+//옛날 문법
+const history = useHistory();
+
+history.push("/login");
+history.replace("/login");
+
+//지금 사용
+const navigate = useNavigate();
+
+navigate("/login");
+navigate("/login", { replace: true });
+```
+
+```js
 //url 경로마다 다른 페이지를 보여주고 싶으면
 <Route path="/detail" element={ <div>상세페이지</div> } />
 <Route path="/about" element={ <div>어바웃페이지</div> } />
@@ -413,6 +427,34 @@ function About() {
     </div>
   );
 }
+```
+
+<br />
+
+```js
+// 원래 SPA라우팅에 걸러지지 않는 링크의 경우 원래 Redirect를 사용했다.
+<Router>
+    <Switch>
+        <Route exact path="/">
+            <Portfolio />
+        </Route>
+        <Route path="/login">
+            <LoginForm />
+        </Route>
+        <Route path="/register" component={Register} />
+        <Redirect to="/notfound" />
+    </Switch>
+</Router>
+
+//지금 현재
+<Router>
+    <Routes>
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="*" element={<NotFound />} />
+    </Routes>
+</Router>
 ```
 
 <br />
