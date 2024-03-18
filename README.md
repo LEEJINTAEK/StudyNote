@@ -40,7 +40,8 @@
 - [**ES6 참조**](./JS/ES2015%EC%9A%94%EC%95%BD.md)
 - [**ES7 ~~ 참조**](./JS/ES7%EC%9D%B4%ED%9B%84.md)
 - [**React 기본 간단 정리**](./JS/REACT.md)
-- [**Redux 세팅**](./JS/Redux.md)
+- [**상태관리**](./JS/상태관리.md)
+- [**디자인 패턴**](./JS/디자인패턴.md)
 - [**React-query**](./JS/REACT_query.md)
 
 <br />
