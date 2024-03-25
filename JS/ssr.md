@@ -1,7 +1,5 @@
 # Browser Rendering
 
-## 목차
-
 ## CSR(Client Side Rendering)?
 
 - Ajax등의 기술, 자바스크립트 프레임워크를 활용하여, <br />
